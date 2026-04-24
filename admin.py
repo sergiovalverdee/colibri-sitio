@@ -146,10 +146,14 @@ else:
 
     if menu == "Ver Sitio Web":
         st.title("Vista Previa del Sitio")
-        with open("index.html", "r", encoding="utf-8") as f:
-            html_code = f.read()
-        st.components.v1.html(html_code, height=800, scrolling=True)
-
+        
+        # Usamos la URL real de tu sitio en GitHub Pages
+        url_real = "https://sergiovalverdee.github.io/colibri-sitio/"
+        
+        # Esto inserta tu página web real dentro del panel
+        st.components.v1.iframe(url_real, height=900, scrolling=True)
+        
+        st.info("💡 Esta es la versión en vivo de tu sitio. Los cambios pueden tardar 1-2 minutos en aparecer tras actualizar.")
     elif menu == "Actualizar Menú":
         st.title("Gestión de Contenido")
         col1, col2 = st.columns([2, 1]) 
