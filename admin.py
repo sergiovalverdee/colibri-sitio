@@ -185,7 +185,7 @@ else:
                             # 3. SINCRONIZAR CON GITHUB (Para que el link cambie)
                             with st.spinner('Sincronizando cambios con el servidor...'):
                                 if subir_a_github():
-                                    st.session_state['mostar_animacion'] = True
+                                    st.session_state['mostrar_animacion'] = True
                                     st.rerun()
                         else:
                             st.error("Error al actualizar HTML.")
