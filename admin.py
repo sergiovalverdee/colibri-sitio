@@ -10,19 +10,53 @@ import git
 # --- FUNCIÓN PARA SINCRONIZAR CON GITHUB ---
 def subir_a_github():
     try:
+        # 1. Configurar la llave SSH en el servidor de Streamlit
+        ssh_path = os.path.expanduser("~/.ssh")
+        if not os.path.exists(ssh_path):
+            os.makedirs(ssh_path)
+            
+        key_file = os.path.join(ssh_path, "id_ed25519")
+        
+        # Leemos la llave desde los Secrets que configuramos
+        with open(key_file, "w") as f:
+            f.write(st.secrets["git"]["ssh_key"])
+        
+        # Permisos necesarios para que Git acepte la llave
+        os.chmod(key_file, 0o600)
+
+        # 2. Inicializar el repositorio y cambiar a URL de SSH
         repo = git.Repo(".")
+        url_ssh = "git@github.com:sergiovalverdee/colibri-sitio.git"
+        
+        if 'origin' in repo.remotes:
+            origin = repo.remote(name='origin')
+            origin.set_url(url_ssh)
+        else:
+            origin = repo.create_remote('origin', url_ssh)
+
+        # 3. Configurar tu identidad para el commit
+        with repo.config_writer() as cw:
+            cw.set_value("user", "name", "sergiovalverdee")
+            cw.set_value("user", "email", "sergiovalverde171206@gmail.com")
+
+        # 4. Preparar y subir los cambios
         repo.git.add("index.html")
-        repo.git.add("colibri_cafe.db") 
-        # Agregamos también las imágenes nuevas si se subieron
-        repo.git.add("static/assets/images/*") 
-        repo.index.commit("Actualización desde Panel Admin ☕")
-        origin = repo.remote(name="origin")
-        origin.push()
+        repo.git.add("colibri_cafe.db")
+        repo.git.add("static/assets/images/*")
+        
+        # Verificamos si hay algo que commitear para evitar errores
+        if repo.is_dirty(untracked_files=True):
+            repo.index.commit("Actualización profesional vía SSH ☕")
+            
+            # El comando 'ssh -o StrictHostKeyChecking=no' es para que no 
+            # se detenga preguntando si confía en GitHub
+            with repo.git.custom_environment(GIT_SSH_COMMAND=f'ssh -i {key_file} -o StrictHostKeyChecking=no'):
+                origin.push()
+        
         return True
     except Exception as e:
-        st.error(f"Error al sincronizar con GitHub: {e}")
+        st.error(f"Error de conexión SSH: {e}")
         return False
-
 # Configuración básica
 CARPETA_IMAGENES = "static/assets/images/"
 
