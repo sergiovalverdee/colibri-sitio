@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Colibrí Café</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+
+    <!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="static/assets/images/letraslogo.png" alt="Logo Colibrí">
+        </a>
+    </div>
+
+<section>
+   <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+</section>
+
+    <ul class="nav-links" id="nav-links">
+        <li><a href="menu.html">Menú Completo</a></li>
+        <li><a href="index.html#lo-del-dia">Lo del Día</a></li>
+        <li><a href="index.html#explora">Explora</a></li>
+        <li><a href="index.html#galeria">Galería</a></li>
+        <li><a href="index.html#ubicacion">Ubicación</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+</nav>
+
+<nav class="submenu-filtros">
+    <div class="filtros-wrapper">
+        <a href="desayunos.html" class="filtro-link">Desayunos</a>
+        <a href="comidas.html" class="filtro-link">Comidas</a>
+        <a href="postres.html" class="filtro-link">Postres</a>
+        <a href="bebidas.html" class="filtro-link">Bebidas</a>
+    </div>
+</nav>
+
+<header class="category" id="inicio">
+    <div class="hero-content">
+        <h1>Esencia en cada grano</h1>
+        <p>Descubre nuestra selección artesanal</p>
+    </div>
+</header>
+
+<section class="cards-contenedor">
+    <article class="card-bistro">
+        <div class="card-img">
+            <img src="static/assets/images/cafe1.png" alt="Avocado Toast">
+        </div>
+        <div class="card-info">
+            <span class="tag-bistro">Desayuno</span>
+            <h3>Avocado Toast</h3>
+            <p>Pan de masa madre tostado, aguacate hass y un toque de hojuelas de chile.</p>
+            <span class="precio-bistro">$145</span>
+        </div>
+    </article>
+
+    <article class="card-bistro">
+        <div class="card-img">
+            <img src="static/assets/images/bebida2.png" alt="Tarta de Frutos">
+        </div>
+        <div class="card-info">
+            <span class="tag-bistro">Postre Artesanal</span>
+            <h3>Tarta de Frutos</h3>
+            <p>Base crujiente de mantequilla rellena de crema pastelera y bayas frescas.</p>
+            <span class="precio-bistro">$110</span>
+        </div>
+    </article>
+
+    <article class="card-bistro">
+        <div class="card-img">
+            <img src="static/assets/images/cafe2.png" alt="Avocado Toast">
+        </div>
+        <div class="card-info">
+            <span class="tag-bistro">Especialidad</span>
+            <h3>Avocado Toast</h3>
+            <p>Pan de masa madre tostado, aguacate hass y un toque de hojuelas de chile.</p>
+            <span class="precio-bistro">$145</span>
+        </div>
+    </article>
+    <article class="card-bistro">
+        <div class="card-img">
+            <img src="static/assets/images/cafe1.png" alt="Avocado Toast">
+        </div>
+        <div class="card-info">
+            <span class="tag-bistro">Desayuno</span>
+            <h3>Avocado Toast</h3>
+            <p>Pan de masa madre tostado, aguacate hass y un toque de hojuelas de chile.</p>
+            <span class="precio-bistro">$145</span>
+        </div>
+    </article>
+    
+</section>
+
+<footer class="footer-principal">
+    <div class="contenedor-footer">
+        <div class="columna-footer">
+            <h4>Explora</h4>
+            <ul>
+                <li><a href="platillos.html">Nuestros Excelentes Platillos</a></li>
+                <li><a href="bebidas.html">Nuestras Excelentes Bebidas</a></li>
+                <li><a href="#galeria">Nuestra Esencia</a></li>
+            </ul>
+        </div>
+
+        <div class="columna-footer">
+            <h4>Colibrí Café Bistro</h4>
+            <p>Sabores honestos y momentos inolvidables en el corazón de El Centenario.</p>
+        </div>
+
+        <div class="columna-footer">
+            <h4>Contacto</h4>
+            <p>📞 662 367 4365</p>
+            <p>✉️ colibricafehmo@icloud.com</p>
+        </div>
+    </div>
+
+    <div class="footer-creditos">
+        <p>&copy; 2026 Colibrí Café. Desarrollado y Diseñado por <strong>CINPOX</strong></p>
+    </div>
+</footer>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu');
+        const menu = document.getElementById('nav-links');
+        const links = document.querySelectorAll('#nav-links a'); 
+
+        if (btn && menu) {
+            btn.onclick = () => {
+                menu.classList.toggle('active');
+            };
+
+            links.forEach(link => {
+                link.onclick = () => {
+                    menu.classList.remove('active');
+                };
+            });
+        }
+    });
+</script>
+
+
+</script>
+</body>
+</html>
