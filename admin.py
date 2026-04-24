@@ -189,12 +189,19 @@ else:
                         st.warning("Sube una foto.")
         
         with col2:
-            if 'mostar_animacion' in st.session_state and st.session_state['mostar_animacion']:
-                lottie_url = "https://assets1.lottiefiles.com/packages/lf20_at45id.json"
-                st_lottie(lottie_url, height=250, key="success_anim", loop=False)
-                st.success("¡Sincronizado con GitHub con éxito!")
-                st.session_state['mostar_animacion'] = False
-    
+            if 'mostrar_animacion' in st.session_state and st.session_state['mostrar_animacion']:
+                # Intentamos cargar la animación de Lottie
+                try:
+                    lottie_url = "https://assets1.lottiefiles.com/packages/lf20_at45id.json"
+                    st_lottie(lottie_url, height=250, key="success_anim", loop=False)
+                except Exception:
+                    # Si falla Lottie, lanzamos globos para que no se vea vacío
+                    st.balloons()
+                
+                # Mensaje de éxito siempre visible
+                st.success("¡Sincronizado con GitHub con éxito! ☕")
+                st.session_state['mostrar_animacion'] = False
+
     elif menu == "Gestionar Usuarios":
         st.title("Registrar Nuevo Administrador")
         with st.form("registro_form"):
