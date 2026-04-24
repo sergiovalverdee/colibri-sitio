@@ -171,20 +171,32 @@ else:
                         subir_a_github()
                         st.rerun()
         
-        # --- PARTE 2: ELIMINACIÓN ---
-        st.subheader("Usuarios actuales")
+        st.divider()
+
+        # --- PARTE 2: ELIMINACIÓN (Diseño Alineado) ---
+        st.subheader("Usuarios con acceso al sistema")
+        
         conn = sqlite3.connect('colibri_cafe.db')
         df_users = pd.read_sql_query("SELECT usuario FROM usuarios", conn)
         conn.close()
 
-        for u in df_users['usuario']:
-            c1, c2 = st.columns([3, 1])
-            c1.write(f"👤 **{u}**")
-            # No dejamos que el usuario se borre a sí mismo
-            if u == st.session_state.get('usuario_actual'):
-                c2.info("Eres tú")
-            else:
-                if c2.button("Eliminar", key=f"btn_{u}"):
-                    if eliminar_usuario(u):
-                        subir_a_github()
-                        st.rerun()
+        # Usamos un contenedor para mejor organización visual
+        with st.container():
+            for u in df_users['usuario']:
+                # Ajustamos columnas: Nombre (6), Espacio (2), Botón (2)
+                col_info, col_vacia, col_accion = st.columns([6, 2, 2])
+                
+                with col_info:
+                    st.markdown(f"### 👤 {u}")
+                
+                with col_accion:
+                    if u == st.session_state.get('usuario_actual'):
+                        st.info("Tu sesión")
+                    else:
+                        # use_container_width=True hace que el botón llene su columna y se vea alineado
+                        if st.button("Eliminar", key=f"btn_{u}", use_container_width=True):
+                            if eliminar_usuario(u):
+                                with st.spinner('Sincronizando cambios...'):
+                                    subir_a_github()
+                                st.rerun()
+                st.divider() # Línea de separación entre cada fila de usuario
